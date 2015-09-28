@@ -34,19 +34,23 @@ df
 summary(df)
 head(df)
 
+
+require(extrafont)
 ggplot() + 
   coord_cartesian() + 
   scale_x_discrete() +
   scale_y_discrete() +
-  #facet_grid(PCLASS~SURVIVED, labeller=label_both) +
+  #facet_wrap(~ETHNICITY) +
+  #facet_grid(.~ETHNICITY, labeller=label_both) + # Same as facet_wrap but with a label.
+  facet_grid(ETHNICITY~YEAR_, labeller=label_both) +
   labs(title='NewYork') +
-  labs(x="CAUSE", y=paste("SEX")) +
+  labs(x="Year", y=paste("Ethnicity")) +
   layer(data=df, 
-        mapping=aes(x=(as.character(CAUSE)), y=(as.character(SEX)), color=as.character(ETHNICITY)), 
+        mapping=aes(x=(as.character(SEX)), y=(as.character(CAUSE)), color=ETHNICITY), 
         stat="identity", 
         stat_params=list(), 
-        geom="point",
+        geom="jitter",
         geom_params=list(), 
         #position=position_identity()
-        position=position_jitter(width=0.5, height=0.5)
+        position=position_jitter(width=0.7, height=0.7)
   )
