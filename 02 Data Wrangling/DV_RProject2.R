@@ -13,7 +13,7 @@ View(df)
 df %>% select(Ethnicity, Year_) %>% tbl_df
 
 # filter
-df %>% select(Ethnicity, Sex) %>% filter(Sex == "FEMALE") %>% tbl_df 
+df %>% select(Year_, Sex) %>% filter(Year_ < 2009) %>% tbl_df 
 
 
 
