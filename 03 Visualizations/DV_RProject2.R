@@ -39,7 +39,7 @@ head(df)
 require(extrafont)
 ggplot() + 
   coord_cartesian() + 
-  scale_x_discrete() +
+  scale_x_continuous() +
   scale_y_discrete() +
   #facet_wrap(~ETHNICITY) +
   #facet_grid(.~ETHNICITY, labeller=label_both) + # Same as facet_wrap but with a label.
@@ -47,7 +47,7 @@ ggplot() +
   labs(title='NewYork') +
   labs(x="Year", y=paste("Sex")) +
   layer(data=df, 
-        mapping=aes(x=(as.character(YEAR_)), y=(as.character(SEX)), color=ETHNICITY), 
+        mapping=aes(x=as.numeric(as.character(YEAR_)), y=(as.character(SEX)), color=ETHNICITY), 
         stat="identity", 
         stat_params=list(), 
         geom="jitter",
