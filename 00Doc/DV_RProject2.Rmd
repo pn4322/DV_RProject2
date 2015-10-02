@@ -16,14 +16,20 @@ output:
 
 3. After running the R code that creates the code for a SQLDeveloper table, create a NewYork table in SQL Developer and import the data from the csv data set.
 
-4. for the first plot: after reading the file, wrangle and plot the data so that the data is grouped by Sex, Percent, and Ethnicity. This plot shows the percentages of deaths for male and females in a specific ethnic group.
+4. for the first plot: after reading the file, wrangle and plot sex by count/number of deaths for each ethnicity in the year 2011.  Each dot represents a different cause of death.
 
-##5. For the second plot: after reading the file, mutate and plot the data so that the data is grouped by
+5. For the second plot: Plot each ethnicity's percentage of death due to heart diseases for the years 2007 - 2011.  Each dot represents a different year's ethnicity's percent of death. Some years overlap with one another, which is why there aren't 5 full bullets per ethnicity.
 
-##6. For the third plot: the The query statement is changed for the sql section to select all from NewYork except where year is less than 2009. The variables are changed to Year_ (discrete variable) and Sex_ (discrete variable), and the color is changed to Ethnicity (discrete variable). This plot tells us 
+6. For the third plot: Plots sex by count/number of deaths for each ethnicity in the year 2010.  Each dot represents a different cause of death. 
 
-## Facet grid faceting is done here, based on the variable Ethnicity (discrete variable) and Year (discrete variable). 
 
 ```{r}
 source("../02DataWrangling/DV_RProject2.R", echo = TRUE)
 ```
+
+### Head and Summary
+
+```{r}
+source("../01Data/Data.R")
+```
+

@@ -3,7 +3,7 @@ require(dplyr)
 require(ggplot2)
 require(extrafont)
 
-setwd("~/Desktop/Data Visualization/DV_RProject2/01 Data")
+setwd("../01Data")
 file_path <- "NewYork.csv"
 
 #df <- rename(NewYork, tbl = table)
