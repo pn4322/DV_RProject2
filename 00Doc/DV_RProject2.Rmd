@@ -1,0 +1,29 @@
+---
+output:
+  html_document:
+    pandoc_args: [
+      "+RTS", "-K64m",
+      "-RTS"
+    ]
+---
+
+
+## Steps
+
+1. Set working directory and the file path to refer to the appropriate data set.
+
+2. Set column names from the data set to a continuous varaible measure or discrete variable dimension.
+
+3. After running the R code that creates the code for a SQLDeveloper table, create a NewYork table in SQL Developer and import the data from the csv data set.
+
+4. for the first plot: after reading the file, wrangle and plot the data so that the data is grouped by Sex, Percent, and Ethnicity. This plot shows the percentages of deaths for male and females in a specific ethnic group.
+
+##5. For the second plot: after reading the file, mutate and plot the data so that the data is grouped by
+
+##6. For the third plot: the The query statement is changed for the sql section to select all from NewYork except where year is less than 2009. The variables are changed to Year_ (discrete variable) and Sex_ (discrete variable), and the color is changed to Ethnicity (discrete variable). This plot tells us 
+
+## Facet grid faceting is done here, based on the variable Ethnicity (discrete variable) and Year (discrete variable). 
+
+```{r}
+source("../02DataWrangling/DV_RProject2.R", echo = TRUE)
+```
