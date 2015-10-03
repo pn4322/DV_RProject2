@@ -1,17 +1,21 @@
 require(tidyr)
 require(dplyr)
 require(ggplot2)
+require(extrafont)
+require("jsonlite")
+require("RCurl")
 
-file_path <- "NewYork.csv"
+# Change the USER and PASS below to be your UTEid
+df <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select * from NEWYORK"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521/PDBF15DV.usuniversi01134.oraclecloud.internal', USER='cs329e_pn4322', PASS='orcl_pn4322', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
 
-df <- read.csv(file_path, stringsAsFactors = FALSE)
+file_path <- "df"
 
 # Replace "." (i.e., period) with "_" in the column names.
 names(df) <- gsub("\\.+", "_", names(df))
 
 # str(df) # Uncomment this and  run just the lines to here to get column types to use for getting the list of measures.
 
-measures <- c("Count_", "Percent_")
+measures <- c("COUNT_", "PERCENT_")
 #measures <- NA # Do this if there are no measures.
 
 # Get rid of special characters in each column.
@@ -48,7 +52,6 @@ if( length(measures) > 1 || ! is.na(measures)) {
   }
 }
 
-write.csv(df, paste(gsub(".csv", "", file_path), ".reformatted.csv", sep=""), row.names=FALSE, na = "")
 
 tableName <- gsub(" +", "_", gsub("[^A-z, 0-9, ]", "", gsub(".csv", "", file_path)))
 sql <- paste("CREATE TABLE", tableName, "(\n-- Change table_name to the table name you want.\n")

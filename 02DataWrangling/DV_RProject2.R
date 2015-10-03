@@ -2,12 +2,11 @@ require(tidyr)
 require(dplyr)
 require(ggplot2)
 require(extrafont)
+require("jsonlite")
+require("RCurl")
 
-setwd("../01Data")
-file_path <- "NewYork.csv"
-
-#df <- rename(NewYork, tbl = table)
-df <- read.csv(file_path)
+# Change the USER and PASS below to be your UTEid
+df <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select * from NEWYORK"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521/PDBF15DV.usuniversi01134.oraclecloud.internal', USER='cs329e_pn4322', PASS='orcl_pn4322', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
 
 #View(df)
 tbl_df(df)
@@ -20,11 +19,16 @@ tbl_df(df)
 
 
 #Plots sex by count/number of deaths for each ethnicity in the year 2011.  Each dot represents a different cause of death.
-df %>% filter(Year_ == 2011) %>% select(Year_, Sex, Count_, Ethnicity) %>% group_by (Sex, Count_, Ethnicity) %>% ggplot(aes(x=Sex, y=Count_)) + geom_point(aes(color=Ethnicity))
+df %>% filter(YEAR_ == 2011) %>% select(YEAR_, SEX, COUNT_, ETHNICITY) %>% group_by (SEX, COUNT_, ETHNICITY) %>% ggplot(aes(x=SEX, y=COUNT_)) + geom_point(aes(color=ETHNICITY))
 
 #Plots each ethnicity's percentage of death due to heart diseases for the years 2007 - 2011.  Each dot represents a different year's ethnicity's percent of death. Some years overlap with one another, which is why there aren't 5 full bullets per ethnicity. 
-df %>% group_by (Percent_, Ethnicity, Cause,Year_) %>% filter(Sex == "MALE")  %>% filter(Cause == "DISEASES OF HEART") %>% ggplot(aes(x = Ethnicity, y = Percent_)) + geom_point(aes(color = Year_))
+df %>% group_by (PERCENT_, ETHNICITY, CAUSE,YEAR_) %>% filter(SEX == "MALE")  %>% filter(CAUSE == "DISEASES OF HEART") %>% ggplot(aes(x = ETHNICITY, y = PERCENT_)) + geom_point(aes(color = YEAR_))
 
-#Plots sex by count/number of deaths for each ethnicity in the year 2010.  Each dot represents a different cause of death.
-df %>% group_by(Percent_, Ethnicity, Cause,Year_,Sex) %>% filter(Sex == "MALE") %>% filter(Ethnicity == "ASIAN & PACIFIC ISLANDER") %>%  ggplot(aes(x = Ethnicity, y = Percent_)) + geom_point(aes(color = Cause))
+#For the third plot: Plots the percent of deaths of both Asian & Pacific Islander males and females per specific disease from 2007 - 2011.
+df %>% group_by(PERCENT_, ETHNICITY, CAUSE,YEAR_,SEX) %>% filter(ETHNICITY == "ASIAN & PACIFIC ISLANDER") %>%  ggplot(aes(x = SEX, y = PERCENT_)) + geom_point(aes(color = CAUSE))
+
+summary(df)
+head(df)
+
+
 
